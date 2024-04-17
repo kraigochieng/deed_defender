@@ -23,7 +23,7 @@ def register_land(land_reference_number: abi.String, title_deed_number: abi.Stri
         app.state.title_deed_number.set(title_deed_number.get())
     )
 
-@app.external
+@app.external(read_only=True)
 def get_land_details(*, output: abi.String):
     return output.set(
         Concat(
