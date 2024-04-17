@@ -8,7 +8,7 @@ import { MyRadAppClient } from '../contracts/MyRadApp'
 import { ABIReturn, OnSchemaBreak, OnUpdate } from '@algorandfoundation/algokit-utils/types/app'
 import { useSnackbar } from 'notistack'
 import { ABIValue } from 'algosdk'
-import '../../styles/form.css'
+import '../styles/form.css'
 
 interface MyComponentInterface {
   openModal: boolean

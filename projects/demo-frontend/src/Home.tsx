@@ -4,15 +4,15 @@ import React, { useState } from 'react'
 import ConnectWallet from './components/ConnectWallet'
 // import Transact from './components/Transact'
 // import AppCalls from './components/AppCalls'
-import MyComponent from './components/MyComponent'
-
+// import MyComponent from './components/MyComponent'
+import Form from './components/Form'
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
   const [openWalletModal, setOpenWalletModal] = useState<boolean>(false)
   // const [openDemoModal, setOpenDemoModal] = useState<boolean>(false)
   // const [appCallsDemoModal, setAppCallsDemoModal] = useState<boolean>(false)
-  const [myComponentModal, setMyComponentModal] = useState<boolean>(false)
+  const [formModal, setFormModal] = useState<boolean>(false)
 
   const { activeAddress } = useWallet()
 
@@ -28,8 +28,8 @@ const Home: React.FC<HomeProps> = () => {
   //   setAppCallsDemoModal(!appCallsDemoModal)
   // }
 
-  const toggleMyComponentModal = () => {
-    setMyComponentModal(!myComponentModal)
+  const toggleFormModal = () => {
+    setFormModal(!formModal)
   }
   return (
     <div className="hero min-h-screen bg-teal-400">
@@ -70,8 +70,8 @@ const Home: React.FC<HomeProps> = () => {
             )} */}
 
             {activeAddress && (
-              <button data-test-id="my-component-demo" className="btn m-2" onClick={toggleMyComponentModal}>
-                Open My Component
+              <button data-test-id="my-component-demo" className="btn m-2" onClick={toggleFormModal}>
+                Deed Defender
               </button>
             )}
           </div>
@@ -79,7 +79,7 @@ const Home: React.FC<HomeProps> = () => {
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           {/* <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
           <AppCalls openModal={appCallsDemoModal} setModalState={setAppCallsDemoModal} /> */}
-          <MyComponent openModal={myComponentModal} setModalState={setMyComponentModal} />
+          <Form openModal={formModal} setModalState={setFormModal} />
         </div>
       </div>
     </div>
