@@ -11,7 +11,7 @@ let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
   const kmdConfig = getKmdConfigFromViteEnvironment()
   providersArray = [
-    {
+    { 
       id: PROVIDER_ID.KMD,
       clientOptions: {
         wallet: kmdConfig.wallet,

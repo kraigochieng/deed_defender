@@ -1,0 +1,169 @@
+#pragma version 10
+
+smart_contracts.counter.contract.Counter.approval_program:
+    txn ApplicationID
+    bnz main_entrypoint@2
+    callsub __init__
+
+main_entrypoint@2:
+    // smart_contracts/counter/contract.py:19
+    // class Counter(ARC4Contract):
+    txn NumAppArgs
+    bz main_bare_routing@8
+    method "invoke_increment_counter()uint64"
+    method "decrement_counter()uint64"
+    txna ApplicationArgs 0
+    match main_invoke_increment_counter_route@4 main_decrement_counter_route@5
+    err // reject transaction
+
+main_invoke_increment_counter_route@4:
+    // smart_contracts/counter/contract.py:24
+    // @arc4.abimethod()
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    callsub invoke_increment_counter
+    itob
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    return
+
+main_decrement_counter_route@5:
+    // smart_contracts/counter/contract.py:36
+    // @arc4.abimethod()
+    txn OnCompletion
+    !
+    assert // OnCompletion is NoOp
+    txn ApplicationID
+    assert // is not creating
+    callsub decrement_counter
+    itob
+    byte 0x151f7c75
+    swap
+    concat
+    log
+    int 1
+    return
+
+main_bare_routing@8:
+    // smart_contracts/counter/contract.py:19
+    // class Counter(ARC4Contract):
+    txn OnCompletion
+    !
+    assert // reject transaction
+    txn ApplicationID
+    !
+    assert // is creating
+    int 1
+    return
+
+
+// smart_contracts.counter.contract.Counter.invoke_increment_counter() -> uint64:
+invoke_increment_counter:
+    // smart_contracts/counter/contract.py:24-25
+    // @arc4.abimethod()
+    // def invoke_increment_counter(self) -> UInt64:
+    proto 0 1
+    // smart_contracts/counter/contract.py:26
+    // self.increment_counter()
+    callsub increment_counter
+    // smart_contracts/counter/contract.py:27
+    // log(self.counter)
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    itob
+    log
+    // smart_contracts/counter/contract.py:29
+    // return self.counter
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    retsub
+
+
+// smart_contracts.counter.contract.Counter.increment_counter() -> void:
+increment_counter:
+    // smart_contracts/counter/contract.py:32-33
+    // @subroutine
+    // def increment_counter(self) -> None:
+    proto 0 0
+    // smart_contracts/counter/contract.py:34
+    // self.counter += 1
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    int 1
+    +
+    byte "counter"
+    swap
+    app_global_put
+    retsub
+
+
+// smart_contracts.counter.contract.Counter.decrement_counter() -> uint64:
+decrement_counter:
+    // smart_contracts/counter/contract.py:36-37
+    // @arc4.abimethod()
+    // def decrement_counter(self) -> UInt64:
+    proto 0 1
+    // smart_contracts/counter/contract.py:38
+    // if(self.counter == 0):
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    bnz decrement_counter_after_if_else@2
+    // smart_contracts/counter/contract.py:39
+    // return UInt64(0)
+    int 0
+    retsub
+
+decrement_counter_after_if_else@2:
+    // smart_contracts/counter/contract.py:41
+    // self.counter -= 1
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    int 1
+    -
+    byte "counter"
+    swap
+    app_global_put
+    // smart_contracts/counter/contract.py:43
+    // log(self.counter)
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    itob
+    log
+    // smart_contracts/counter/contract.py:44
+    // return self.counter
+    int 0
+    byte "counter"
+    app_global_get_ex
+    assert // check counter exists
+    retsub
+
+
+// smart_contracts.counter.contract.Counter.__init__() -> void:
+__init__:
+    // smart_contracts/counter/contract.py:20
+    // def __init__(self) -> None:
+    proto 0 0
+    // smart_contracts/counter/contract.py:21
+    // self.counter = UInt64(0)
+    byte "counter"
+    int 0
+    app_global_put
+    retsub
