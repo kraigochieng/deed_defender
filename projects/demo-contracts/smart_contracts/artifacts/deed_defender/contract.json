@@ -1,0 +1,42 @@
+{
+    "name": "Deed Defender",
+    "methods": [
+        {
+            "name": "register_land",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "land_reference_number"
+                },
+                {
+                    "type": "string",
+                    "name": "title_deed_number"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "get_land_details",
+            "args": [],
+            "returns": {
+                "type": "string"
+            }
+        },
+        {
+            "name": "check_land_details",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "title_deed"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            }
+        }
+    ],
+    "networks": {},
+    "desc": "This is Deed Defender"
+}

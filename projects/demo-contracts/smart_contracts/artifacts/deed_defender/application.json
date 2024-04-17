@@ -1,0 +1,99 @@
+{
+    "hints": {
+        "register_land(string,string)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_land_details()string": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "check_land_details(string)uint64": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4IDB4NmM2MTZlNjQ1ZjcyNjU2NjY1NzI2NTZlNjM2NTVmNmU3NTZkNjI2NTcyIDB4NzQ2OTc0NmM2NTVmNjQ2NTY1NjQ1ZjZlNzU2ZDYyNjU3MiAweDE1MWY3Yzc1CnR4biBOdW1BcHBBcmdzCmludGNfMCAvLyAwCj09CmJueiBtYWluX2w4CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4Y2YyMDU0NmYgLy8gInJlZ2lzdGVyX2xhbmQoc3RyaW5nLHN0cmluZyl2b2lkIgo9PQpibnogbWFpbl9sNwp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDc4YzU3ZmRhIC8vICJnZXRfbGFuZF9kZXRhaWxzKClzdHJpbmciCj09CmJueiBtYWluX2w2CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4MDBmYTI2NTggLy8gImNoZWNrX2xhbmRfZGV0YWlscyhzdHJpbmcpdWludDY0Igo9PQpibnogbWFpbl9sNQplcnIKbWFpbl9sNToKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBjaGVja2xhbmRkZXRhaWxzY2FzdGVyXzUKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDY6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgZ2V0bGFuZGRldGFpbHNjYXN0ZXJfNAppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sNzoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiByZWdpc3RlcmxhbmRjYXN0ZXJfMwppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sODoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQpibnogbWFpbl9sMTAKZXJyCm1haW5fbDEwOgp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAo9PQphc3NlcnQKaW50Y18xIC8vIDEKcmV0dXJuCgovLyByZWdpc3Rlcl9sYW5kCnJlZ2lzdGVybGFuZF8wOgpwcm90byAyIDAKYnl0ZWNfMSAvLyAibGFuZF9yZWZlcmVuY2VfbnVtYmVyIgpmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKYXBwX2dsb2JhbF9wdXQKYnl0ZWNfMiAvLyAidGl0bGVfZGVlZF9udW1iZXIiCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApyZXRzdWIKCi8vIGdldF9sYW5kX2RldGFpbHMKZ2V0bGFuZGRldGFpbHNfMToKcHJvdG8gMCAxCmJ5dGVjXzAgLy8gIiIKYnl0ZWNfMSAvLyAibGFuZF9yZWZlcmVuY2VfbnVtYmVyIgphcHBfZ2xvYmFsX2dldApwdXNoYnl0ZXMgMHgyMCAvLyAiICIKY29uY2F0CmJ5dGVjXzIgLy8gInRpdGxlX2RlZWRfbnVtYmVyIgphcHBfZ2xvYmFsX2dldApjb25jYXQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmxlbgppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyAwCmNvbmNhdApmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyBjaGVja19sYW5kX2RldGFpbHMKY2hlY2tsYW5kZGV0YWlsc18yOgpwcm90byAxIDEKaW50Y18wIC8vIDAKaW50Y18xIC8vIDEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gcmVnaXN0ZXJfbGFuZF9jYXN0ZXIKcmVnaXN0ZXJsYW5kY2FzdGVyXzM6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpjYWxsc3ViIHJlZ2lzdGVybGFuZF8wCnJldHN1YgoKLy8gZ2V0X2xhbmRfZGV0YWlsc19jYXN0ZXIKZ2V0bGFuZGRldGFpbHNjYXN0ZXJfNDoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKY2FsbHN1YiBnZXRsYW5kZGV0YWlsc18xCmZyYW1lX2J1cnkgMApieXRlY18zIC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKY29uY2F0CmxvZwpyZXRzdWIKCi8vIGNoZWNrX2xhbmRfZGV0YWlsc19jYXN0ZXIKY2hlY2tsYW5kZGV0YWlsc2Nhc3Rlcl81Ogpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIGNoZWNrbGFuZGRldGFpbHNfMgpmcmFtZV9idXJ5IDAKYnl0ZWNfMyAvLyAweDE1MWY3Yzc1CmZyYW1lX2RpZyAwCml0b2IKY29uY2F0CmxvZwpyZXRzdWI=",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 2,
+            "num_uints": 0
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "land_reference_number": {
+                    "type": "bytes",
+                    "key": "land_reference_number",
+                    "descr": ""
+                },
+                "title_deed_number": {
+                    "type": "bytes",
+                    "key": "title_deed_number",
+                    "descr": ""
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "Deed Defender",
+        "methods": [
+            {
+                "name": "register_land",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "land_reference_number"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title_deed_number"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                }
+            },
+            {
+                "name": "get_land_details",
+                "args": [],
+                "returns": {
+                    "type": "string"
+                }
+            },
+            {
+                "name": "check_land_details",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "title_deed"
+                    }
+                ],
+                "returns": {
+                    "type": "uint64"
+                }
+            }
+        ],
+        "networks": {},
+        "desc": "This is Deed Defender"
+    },
+    "bare_call_config": {
+        "no_op": "CREATE"
+    }
+}

@@ -3,7 +3,7 @@ import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/type
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
 import { getAlgodConfigFromViteEnvironment, getIndexerConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MyRadAppClient } from '../contracts/MyRadApp'
 import { ABIReturn, OnSchemaBreak, OnUpdate } from '@algorandfoundation/algokit-utils/types/app'
 import { useSnackbar } from 'notistack'
@@ -14,6 +14,15 @@ interface MyComponentInterface {
 }
 
 const MyComponent = ({ openModal, setModalState }: MyComponentInterface) => {
+    async function testing() {
+        const address = "IWKHBJVHTHIHWCXXSXWO5XXKD7ZNHRSYGLXLCHWJSKMXN32KUYY7B3MCII";
+        const accountAppLocalStates = await indexer.lookupAccountByID(address).do();
+        console.log(accountAppLocalStates)
+      }
+    
+    useEffect(()=> {
+        testing()
+    }, [])
     // App states
   const [loading, setLoading] = useState<boolean>(false)
   const [num1, setNum1] = useState<number>(0)
@@ -38,6 +47,8 @@ const MyComponent = ({ openModal, setModalState }: MyComponentInterface) => {
     port: indexerConfig.port,
     token: indexerConfig.token,
   })
+
+
 
   const sendAppCall = async () => {
     setLoading(true)
@@ -86,6 +97,18 @@ const MyComponent = ({ openModal, setModalState }: MyComponentInterface) => {
     setLoading(false)
   }
 
+//   async function fetchData() {
+//     try {
+//         const response = await fetch("/health")
+//         const data = await response.text()
+//         console.log(data)
+//       } catch(e) {
+//         console.error(e)
+//       }
+//   }
+
+//   fetchData()
+  
   return (
     <dialog id="appcalls_modal" className={`modal ${openModal ? 'modal-open' : ''} bg-slate-200`}>
         <form method="dialog" className="modal-box">
