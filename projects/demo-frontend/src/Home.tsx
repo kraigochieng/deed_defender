@@ -6,6 +6,9 @@ import ConnectWallet from './components/ConnectWallet'
 // import AppCalls from './components/AppCalls'
 // import MyComponent from './components/MyComponent'
 import Form from './components/Form'
+import VerifyLandModal from './components/VerifyLandModal'
+
+
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
@@ -13,6 +16,7 @@ const Home: React.FC<HomeProps> = () => {
   // const [openDemoModal, setOpenDemoModal] = useState<boolean>(false)
   // const [appCallsDemoModal, setAppCallsDemoModal] = useState<boolean>(false)
   const [formModal, setFormModal] = useState<boolean>(false)
+  const [verifyLandModal, setVerifyLandModal] = useState<boolean>(false)
 
   const { activeAddress } = useWallet()
 
@@ -20,16 +24,12 @@ const Home: React.FC<HomeProps> = () => {
     setOpenWalletModal(!openWalletModal)
   }
 
-  // const toggleDemoModal = () => {
-  //   setOpenDemoModal(!openDemoModal)
-  // }
-
-  // const toggleAppCallsModal = () => {
-  //   setAppCallsDemoModal(!appCallsDemoModal)
-  // }
-
   const toggleFormModal = () => {
     setFormModal(!formModal)
+  }
+
+  const toggleVerifyLandModal = () => {
+    setVerifyLandModal(!verifyLandModal)
   }
   return (
     <div className="hero min-h-screen bg-teal-400">
@@ -38,48 +38,28 @@ const Home: React.FC<HomeProps> = () => {
           <h1 className="text-4xl">
             Deed Defender
           </h1>
-          {/* <p className="py-6">
-            This starter has been generated using official AlgoKit React template. Refer to the resource below for next steps.
-          </p> */}
-
           <div className="grid">
-            {/* <a
-              data-test-id="getting-started"
-              className="btn btn-primary m-2"
-              target="_blank"
-              href="https://github.com/algorandfoundation/algokit-cli"
-            >
-              Getting started
-            </a>
-
-            <div className="divider" /> */}
             <button data-test-id="connect-wallet" className="btn m-2" onClick={toggleWalletModal}>
               Wallet Connection
             </button>
-
-            {/* {activeAddress && (
-              <button data-test-id="transactions-demo" className="btn m-2" onClick={toggleDemoModal}>
-                Transactions Demo
-              </button>
-            )}
-
-            {activeAddress && (
-              <button data-test-id="appcalls-demo" className="btn m-2" onClick={toggleAppCallsModal}>
-                Contract Interactions Demo
-              </button>
-            )} */}
 
             {activeAddress && (
               <button data-test-id="my-component-demo" className="btn m-2" onClick={toggleFormModal}>
                 Register Land
               </button>
             )}
+
+            {activeAddress && (
+              <button data-test-id="my-component-demo" className="btn m-2" onClick={toggleVerifyLandModal}>
+                Verify Land
+              </button>
+            )}
           </div>
 
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
-          {/* <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
-          <AppCalls openModal={appCallsDemoModal} setModalState={setAppCallsDemoModal} /> */}
           <Form openModal={formModal} setModalState={setFormModal} />
+          <VerifyLandModal openModal={verifyLandModal} setModalState={setVerifyLandModal} />
+          
         </div>
       </div>
     </div>

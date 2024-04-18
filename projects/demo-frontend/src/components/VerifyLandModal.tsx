@@ -16,7 +16,7 @@ interface MyComponentInterface {
   setModalState: (value: boolean) => void
 }
 
-const Form = ({ openModal, setModalState }: MyComponentInterface) => {
+const VerifyLandModal = ({ openModal, setModalState }: MyComponentInterface) => {
 
   // App State 
   const [loading, setLoading] = useState<boolean>(false)
@@ -515,4 +515,4 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     </dialog>
   )
 }
-export default Form
+export default VerifyLandModal
