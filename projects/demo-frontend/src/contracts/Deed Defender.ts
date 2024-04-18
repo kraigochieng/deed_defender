@@ -30,24 +30,24 @@ import type { ABIResult, TransactionWithSigner } from 'algosdk'
 import { Algodv2, OnApplicationComplete, Transaction, AtomicTransactionComposer, modelsv2 } from 'algosdk'
 export const APP_SPEC: AppSpec = {
   "hints": {
-    "register_land(string,string)void": {
+    "register_land(string)void": {
       "call_config": {
         "no_op": "CALL"
       }
     },
-    "verify_land_details(string)uint64": {
+    "get_land()string": {
       "call_config": {
         "no_op": "CALL"
       }
     }
   },
   "source": {
-    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4IDB4NmM2MTZlNjQ1ZjcyNjU2NjY1NzI2NTZlNjM2NTVmNmU3NTZkNjI2NTcyIDB4NzQ2OTc0NmM2NTVmNjQ2NTY1NjQ1ZjZlNzU2ZDYyNjU3Mgp0eG4gTnVtQXBwQXJncwppbnRjXzAgLy8gMAo9PQpibnogbWFpbl9sNgp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGNmMjA1NDZmIC8vICJyZWdpc3Rlcl9sYW5kKHN0cmluZyxzdHJpbmcpdm9pZCIKPT0KYm56IG1haW5fbDUKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHhhZDZjMGJhMyAvLyAidmVyaWZ5X2xhbmRfZGV0YWlscyhzdHJpbmcpdWludDY0Igo9PQpibnogbWFpbl9sNAplcnIKbWFpbl9sNDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiB2ZXJpZnlsYW5kZGV0YWlsc2Nhc3Rlcl80CmludGNfMSAvLyAxCnJldHVybgptYWluX2w1Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHJlZ2lzdGVybGFuZGNhc3Rlcl8zCmludGNfMSAvLyAxCnJldHVybgptYWluX2w2Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CmJueiBtYWluX2w4CmVycgptYWluX2w4Ogp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAo9PQphc3NlcnQKY2FsbHN1YiBjcmVhdGVfMAppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIGNyZWF0ZQpjcmVhdGVfMDoKcHJvdG8gMCAwCmJ5dGVjXzEgLy8gImxhbmRfcmVmZXJlbmNlX251bWJlciIKYnl0ZWNfMCAvLyAiIgphcHBfZ2xvYmFsX3B1dApieXRlY18yIC8vICJ0aXRsZV9kZWVkX251bWJlciIKYnl0ZWNfMCAvLyAiIgphcHBfZ2xvYmFsX3B1dApyZXRzdWIKCi8vIHJlZ2lzdGVyX2xhbmQKcmVnaXN0ZXJsYW5kXzE6CnByb3RvIDIgMApieXRlY18xIC8vICJsYW5kX3JlZmVyZW5jZV9udW1iZXIiCmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlY18yIC8vICJ0aXRsZV9kZWVkX251bWJlciIKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmFwcF9nbG9iYWxfcHV0CnJldHN1YgoKLy8gdmVyaWZ5X2xhbmRfZGV0YWlscwp2ZXJpZnlsYW5kZGV0YWlsc18yOgpwcm90byAxIDEKaW50Y18wIC8vIDAKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmJ5dGVjXzEgLy8gImxhbmRfcmVmZXJlbmNlX251bWJlciIKYXBwX2dsb2JhbF9nZXQKPT0KYm56IHZlcmlmeWxhbmRkZXRhaWxzXzJfbDIKaW50Y18wIC8vIDAKZnJhbWVfYnVyeSAwCmIgdmVyaWZ5bGFuZGRldGFpbHNfMl9sMwp2ZXJpZnlsYW5kZGV0YWlsc18yX2wyOgppbnRjXzEgLy8gMQpmcmFtZV9idXJ5IDAKdmVyaWZ5bGFuZGRldGFpbHNfMl9sMzoKcmV0c3ViCgovLyByZWdpc3Rlcl9sYW5kX2Nhc3RlcgpyZWdpc3RlcmxhbmRjYXN0ZXJfMzoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKZHVwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAwCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmNhbGxzdWIgcmVnaXN0ZXJsYW5kXzEKcmV0c3ViCgovLyB2ZXJpZnlfbGFuZF9kZXRhaWxzX2Nhc3Rlcgp2ZXJpZnlsYW5kZGV0YWlsc2Nhc3Rlcl80Ogpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIHZlcmlmeWxhbmRkZXRhaWxzXzIKZnJhbWVfYnVyeSAwCnB1c2hieXRlcyAweDE1MWY3Yzc1IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKaXRvYgpjb25jYXQKbG9nCnJldHN1Yg==",
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4NmM2MTZlNjQ1ZjcyNjU2NjY1NzI2NTZlNjM2NTVmNjE2ZTY0NWY3NDY5NzQ2YzY1NWY2NDY1NjU2NCAweAp0eG4gTnVtQXBwQXJncwppbnRjXzAgLy8gMAo9PQpibnogbWFpbl9sNgp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGI2NDJiOTI0IC8vICJyZWdpc3Rlcl9sYW5kKHN0cmluZyl2b2lkIgo9PQpibnogbWFpbl9sNQp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDU1YzFlYzVjIC8vICJnZXRfbGFuZCgpc3RyaW5nIgo9PQpibnogbWFpbl9sNAplcnIKbWFpbl9sNDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBnZXRsYW5kY2FzdGVyXzQKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDU6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgcmVnaXN0ZXJsYW5kY2FzdGVyXzMKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDY6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KYm56IG1haW5fbDgKZXJyCm1haW5fbDg6CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCj09CmFzc2VydApjYWxsc3ViIGNyZWF0ZV8wCmludGNfMSAvLyAxCnJldHVybgoKLy8gY3JlYXRlCmNyZWF0ZV8wOgpwcm90byAwIDAKYnl0ZWNfMCAvLyAibGFuZF9yZWZlcmVuY2VfYW5kX3RpdGxlX2RlZWQiCmJ5dGVjXzEgLy8gIiIKYXBwX2dsb2JhbF9wdXQKcmV0c3ViCgovLyByZWdpc3Rlcl9sYW5kCnJlZ2lzdGVybGFuZF8xOgpwcm90byAxIDAKYnl0ZWNfMCAvLyAibGFuZF9yZWZlcmVuY2VfYW5kX3RpdGxlX2RlZWQiCmJ5dGVjXzAgLy8gImxhbmRfcmVmZXJlbmNlX2FuZF90aXRsZV9kZWVkIgphcHBfZ2xvYmFsX2dldApmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKY29uY2F0CmFwcF9nbG9iYWxfcHV0CnJldHN1YgoKLy8gZ2V0X2xhbmQKZ2V0bGFuZF8yOgpwcm90byAwIDEKYnl0ZWNfMSAvLyAiIgpieXRlY18wIC8vICJsYW5kX3JlZmVyZW5jZV9hbmRfdGl0bGVfZGVlZCIKYXBwX2dsb2JhbF9nZXQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmxlbgppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyAwCmNvbmNhdApmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyByZWdpc3Rlcl9sYW5kX2Nhc3RlcgpyZWdpc3RlcmxhbmRjYXN0ZXJfMzoKcHJvdG8gMCAwCmJ5dGVjXzEgLy8gIiIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKY2FsbHN1YiByZWdpc3RlcmxhbmRfMQpyZXRzdWIKCi8vIGdldF9sYW5kX2Nhc3RlcgpnZXRsYW5kY2FzdGVyXzQ6CnByb3RvIDAgMApieXRlY18xIC8vICIiCmNhbGxzdWIgZ2V0bGFuZF8yCmZyYW1lX2J1cnkgMApwdXNoYnl0ZXMgMHgxNTFmN2M3NSAvLyAweDE1MWY3Yzc1CmZyYW1lX2RpZyAwCmNvbmNhdApsb2cKcmV0c3Vi",
     "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
   },
   "state": {
     "global": {
-      "num_byte_slices": 2,
+      "num_byte_slices": 1,
       "num_uints": 0
     },
     "local": {
@@ -58,14 +58,9 @@ export const APP_SPEC: AppSpec = {
   "schema": {
     "global": {
       "declared": {
-        "land_reference_number": {
+        "land_reference_and_title_deed": {
           "type": "bytes",
-          "key": "land_reference_number",
-          "descr": ""
-        },
-        "title_deed_number": {
-          "type": "bytes",
-          "key": "title_deed_number",
+          "key": "land_reference_and_title_deed",
           "descr": ""
         }
       },
@@ -84,11 +79,7 @@ export const APP_SPEC: AppSpec = {
         "args": [
           {
             "type": "string",
-            "name": "land_reference_number"
-          },
-          {
-            "type": "string",
-            "name": "title_deed_number"
+            "name": "land_reference_and_title_deed"
           }
         ],
         "returns": {
@@ -96,15 +87,10 @@ export const APP_SPEC: AppSpec = {
         }
       },
       {
-        "name": "verify_land_details",
-        "args": [
-          {
-            "type": "string",
-            "name": "land_reference_number"
-          }
-        ],
+        "name": "get_land",
+        "args": [],
         "returns": {
-          "type": "uint64"
+          "type": "string"
         }
       }
     ],
@@ -186,28 +172,25 @@ export type DeedDefender = {
    * Maps method signatures / names to their argument and return types.
    */
   methods:
-    & Record<'register_land(string,string)void' | 'register_land', {
+    & Record<'register_land(string)void' | 'register_land', {
       argsObj: {
-        landReferenceNumber: string
-        titleDeedNumber: string
+        landReferenceAndTitleDeed: string
       }
-      argsTuple: [landReferenceNumber: string, titleDeedNumber: string]
+      argsTuple: [landReferenceAndTitleDeed: string]
       returns: void
     }>
-    & Record<'verify_land_details(string)uint64' | 'verify_land_details', {
+    & Record<'get_land()string' | 'get_land', {
       argsObj: {
-        landReferenceNumber: string
       }
-      argsTuple: [landReferenceNumber: string]
-      returns: bigint
+      argsTuple: []
+      returns: string
     }>
   /**
    * Defines the shape of the global and local state of the application.
    */
   state: {
     global: {
-      landReferenceNumber?: BinaryState
-      titleDeedNumber?: BinaryState
+      landReferenceAndTitleDeed?: BinaryState
     }
   }
 }
@@ -282,30 +265,30 @@ export abstract class DeedDefenderCallFactory {
   }
 
   /**
-   * Constructs a no op call for the register_land(string,string)void ABI method
+   * Constructs a no op call for the register_land(string)void ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static registerLand(args: MethodArgs<'register_land(string,string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static registerLand(args: MethodArgs<'register_land(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'register_land(string,string)void' as const,
-      methodArgs: Array.isArray(args) ? args : [args.landReferenceNumber, args.titleDeedNumber],
+      method: 'register_land(string)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.landReferenceAndTitleDeed],
       ...params,
     }
   }
   /**
-   * Constructs a no op call for the verify_land_details(string)uint64 ABI method
+   * Constructs a no op call for the get_land()string ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static verifyLandDetails(args: MethodArgs<'verify_land_details(string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static getLand(args: MethodArgs<'get_land()string'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'verify_land_details(string)uint64' as const,
-      methodArgs: Array.isArray(args) ? args : [args.landReferenceNumber],
+      method: 'get_land()string' as const,
+      methodArgs: Array.isArray(args) ? args : [],
       ...params,
     }
   }
@@ -408,25 +391,25 @@ export class DeedDefenderClient {
   }
 
   /**
-   * Calls the register_land(string,string)void ABI method.
+   * Calls the register_land(string)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public registerLand(args: MethodArgs<'register_land(string,string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+  public registerLand(args: MethodArgs<'register_land(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
     return this.call(DeedDefenderCallFactory.registerLand(args, params))
   }
 
   /**
-   * Calls the verify_land_details(string)uint64 ABI method.
+   * Calls the get_land()string ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public verifyLandDetails(args: MethodArgs<'verify_land_details(string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
-    return this.call(DeedDefenderCallFactory.verifyLandDetails(args, params))
+  public getLand(args: MethodArgs<'get_land()string'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+    return this.call(DeedDefenderCallFactory.getLand(args, params))
   }
 
   /**
@@ -479,11 +462,8 @@ export class DeedDefenderClient {
   public async getGlobalState(): Promise<DeedDefender['state']['global']> {
     const state = await this.appClient.getGlobalState()
     return {
-      get landReferenceNumber() {
-        return DeedDefenderClient.getBinaryState(state, 'land_reference_number')
-      },
-      get titleDeedNumber() {
-        return DeedDefenderClient.getBinaryState(state, 'title_deed_number')
+      get landReferenceAndTitleDeed() {
+        return DeedDefenderClient.getBinaryState(state, 'land_reference_and_title_deed')
       },
     }
   }
@@ -494,13 +474,13 @@ export class DeedDefenderClient {
     let promiseChain:Promise<unknown> = Promise.resolve()
     const resultMappers: Array<undefined | ((x: any) => any)> = []
     return {
-      registerLand(args: MethodArgs<'register_land(string,string)void'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
+      registerLand(args: MethodArgs<'register_land(string)void'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.registerLand(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
       },
-      verifyLandDetails(args: MethodArgs<'verify_land_details(string)uint64'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
-        promiseChain = promiseChain.then(() => client.verifyLandDetails(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
+      getLand(args: MethodArgs<'get_land()string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
+        promiseChain = promiseChain.then(() => client.getLand(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
       },
@@ -538,22 +518,22 @@ export class DeedDefenderClient {
 }
 export type DeedDefenderComposer<TReturns extends [...any[]] = []> = {
   /**
-   * Calls the register_land(string,string)void ABI method.
+   * Calls the register_land(string)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  registerLand(args: MethodArgs<'register_land(string,string)void'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'register_land(string,string)void'>]>
+  registerLand(args: MethodArgs<'register_land(string)void'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'register_land(string)void'>]>
 
   /**
-   * Calls the verify_land_details(string)uint64 ABI method.
+   * Calls the get_land()string ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  verifyLandDetails(args: MethodArgs<'verify_land_details(string)uint64'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'verify_land_details(string)uint64'>]>
+  getLand(args: MethodArgs<'get_land()string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'get_land()string'>]>
 
   /**
    * Makes a clear_state call to an existing instance of the Deed Defender smart contract.

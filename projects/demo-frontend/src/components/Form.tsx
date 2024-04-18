@@ -156,7 +156,14 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
 
     // Actual execution 
     // register Land
-    await appClient.registerLand({ landReferenceNumber: form.landNumber, titleDeedNumber: form.titleDeed }).catch((e: Error) => {
+    const landReferenceAndTitleDeed = `${form.landNumber}:${form.titleDeed};`
+    await appClient.registerLand({ landReferenceAndTitleDeed: landReferenceAndTitleDeed })
+    .then(() => {
+      enqueueSnackbar(`Land registered successfully`, { variant: 'success' })
+      setLoading(false)
+      return
+    })
+    .catch((e: Error) => {
       enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
       setLoading(false)
       return
@@ -211,15 +218,21 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       return
     })
 
+    const response = await appClient.getLand({}).catch((e: Error) => {
+      enqueueSnackbar(`Error getting land details${e.message}`, { variant: 'error' })
+      setLoading(false)
+      return
+    })
+
     // console.log("App Deployment", appDeployment.appId)
 
     // Actual execution 
     // register Land
-    const response = await appClient.verifyLandDetails({ landReferenceNumber: verification.landNumberVerification }).catch((e: Error) => {
-      enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
-      setLoading(false)
-      return
-    })
+    // const response = await appClient.verifyLandDetails({ landReferenceNumber: verification.landNumberVerification }).catch((e: Error) => {
+    //   enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
+    //   setLoading(false)
+    //   return
+    // })
 
     // setResult(response?.return)
 
