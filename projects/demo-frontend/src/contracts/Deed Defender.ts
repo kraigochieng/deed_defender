@@ -35,20 +35,14 @@ export const APP_SPEC: AppSpec = {
         "no_op": "CALL"
       }
     },
-    "get_land_details()string": {
-      "read_only": true,
-      "call_config": {
-        "no_op": "CALL"
-      }
-    },
-    "check_land_details(string)uint64": {
+    "get_land_details(string)string": {
       "call_config": {
         "no_op": "CALL"
       }
     }
   },
   "source": {
-    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4IDB4NzQ2OTc0NmM2NTVmNjQ2NTY1NjQ1ZjZlNzU2ZDYyNjU3MiAweDZjNjE2ZTY0NWY3MjY1NjY2NTcyNjU2ZTYzNjU1ZjZlNzU2ZDYyNjU3MiAweDE1MWY3Yzc1CnR4biBOdW1BcHBBcmdzCmludGNfMCAvLyAwCj09CmJueiBtYWluX2w4CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4Y2YyMDU0NmYgLy8gInJlZ2lzdGVyX2xhbmQoc3RyaW5nLHN0cmluZyl2b2lkIgo9PQpibnogbWFpbl9sNwp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDc4YzU3ZmRhIC8vICJnZXRfbGFuZF9kZXRhaWxzKClzdHJpbmciCj09CmJueiBtYWluX2w2CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4MDBmYTI2NTggLy8gImNoZWNrX2xhbmRfZGV0YWlscyhzdHJpbmcpdWludDY0Igo9PQpibnogbWFpbl9sNQplcnIKbWFpbl9sNToKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBjaGVja2xhbmRkZXRhaWxzY2FzdGVyXzUKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDY6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgZ2V0bGFuZGRldGFpbHNjYXN0ZXJfNAppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sNzoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiByZWdpc3RlcmxhbmRjYXN0ZXJfMwppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sODoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQpibnogbWFpbl9sMTAKZXJyCm1haW5fbDEwOgp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAo9PQphc3NlcnQKaW50Y18xIC8vIDEKcmV0dXJuCgovLyByZWdpc3Rlcl9sYW5kCnJlZ2lzdGVybGFuZF8wOgpwcm90byAyIDAKdHhuIFNlbmRlcgpnbG9iYWwgQ3JlYXRvckFkZHJlc3MKPT0KLy8gdW5hdXRob3JpemVkCmFzc2VydApieXRlY18yIC8vICJsYW5kX3JlZmVyZW5jZV9udW1iZXIiCmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlY18xIC8vICJ0aXRsZV9kZWVkX251bWJlciIKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmFwcF9nbG9iYWxfcHV0CnJldHN1YgoKLy8gZ2V0X2xhbmRfZGV0YWlscwpnZXRsYW5kZGV0YWlsc18xOgpwcm90byAwIDEKYnl0ZWNfMCAvLyAiIgpieXRlY18yIC8vICJsYW5kX3JlZmVyZW5jZV9udW1iZXIiCmFwcF9nbG9iYWxfZ2V0CnB1c2hieXRlcyAweDIwIC8vICIgIgpjb25jYXQKYnl0ZWNfMSAvLyAidGl0bGVfZGVlZF9udW1iZXIiCmFwcF9nbG9iYWxfZ2V0CmNvbmNhdApmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKbGVuCml0b2IKZXh0cmFjdCA2IDAKZnJhbWVfZGlnIDAKY29uY2F0CmZyYW1lX2J1cnkgMApyZXRzdWIKCi8vIGNoZWNrX2xhbmRfZGV0YWlscwpjaGVja2xhbmRkZXRhaWxzXzI6CnByb3RvIDEgMQppbnRjXzAgLy8gMApmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKYnl0ZWNfMSAvLyAidGl0bGVfZGVlZF9udW1iZXIiCmFwcF9nbG9iYWxfZ2V0Cj09CmJueiBjaGVja2xhbmRkZXRhaWxzXzJfbDIKaW50Y18wIC8vIDAKZnJhbWVfYnVyeSAwCmIgY2hlY2tsYW5kZGV0YWlsc18yX2wzCmNoZWNrbGFuZGRldGFpbHNfMl9sMjoKaW50Y18xIC8vIDEKZnJhbWVfYnVyeSAwCmNoZWNrbGFuZGRldGFpbHNfMl9sMzoKcmV0c3ViCgovLyByZWdpc3Rlcl9sYW5kX2Nhc3RlcgpyZWdpc3RlcmxhbmRjYXN0ZXJfMzoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKZHVwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAwCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmNhbGxzdWIgcmVnaXN0ZXJsYW5kXzAKcmV0c3ViCgovLyBnZXRfbGFuZF9kZXRhaWxzX2Nhc3RlcgpnZXRsYW5kZGV0YWlsc2Nhc3Rlcl80Ogpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgpjYWxsc3ViIGdldGxhbmRkZXRhaWxzXzEKZnJhbWVfYnVyeSAwCmJ5dGVjXzMgLy8gMHgxNTFmN2M3NQpmcmFtZV9kaWcgMApjb25jYXQKbG9nCnJldHN1YgoKLy8gY2hlY2tfbGFuZF9kZXRhaWxzX2Nhc3RlcgpjaGVja2xhbmRkZXRhaWxzY2FzdGVyXzU6CnByb3RvIDAgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCmNhbGxzdWIgY2hlY2tsYW5kZGV0YWlsc18yCmZyYW1lX2J1cnkgMApieXRlY18zIC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKaXRvYgpjb25jYXQKbG9nCnJldHN1Yg==",
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4CnR4biBOdW1BcHBBcmdzCmludGNfMCAvLyAwCj09CmJueiBtYWluX2w2CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4Y2YyMDU0NmYgLy8gInJlZ2lzdGVyX2xhbmQoc3RyaW5nLHN0cmluZyl2b2lkIgo9PQpibnogbWFpbl9sNQp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGI2OGRlNWNmIC8vICJnZXRfbGFuZF9kZXRhaWxzKHN0cmluZylzdHJpbmciCj09CmJueiBtYWluX2w0CmVycgptYWluX2w0Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdldGxhbmRkZXRhaWxzY2FzdGVyXzMKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDU6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgcmVnaXN0ZXJsYW5kY2FzdGVyXzIKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDY6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KYm56IG1haW5fbDgKZXJyCm1haW5fbDg6CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCj09CmFzc2VydAppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIHJlZ2lzdGVyX2xhbmQKcmVnaXN0ZXJsYW5kXzA6CnByb3RvIDIgMAp0eG4gU2VuZGVyCmdsb2JhbCBDcmVhdG9yQWRkcmVzcwo9PQovLyB1bmF1dGhvcml6ZWQKYXNzZXJ0CmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMApib3hfZGVsCnBvcApmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmJveF9wdXQKcmV0c3ViCgovLyBnZXRfbGFuZF9kZXRhaWxzCmdldGxhbmRkZXRhaWxzXzE6CnByb3RvIDEgMQpieXRlY18wIC8vICIiCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMApib3hfZ2V0CnN0b3JlIDEKc3RvcmUgMApsb2FkIDEKYXNzZXJ0CmxvYWQgMApmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKbGVuCml0b2IKZXh0cmFjdCA2IDAKZnJhbWVfZGlnIDAKY29uY2F0CmZyYW1lX2J1cnkgMApyZXRzdWIKCi8vIHJlZ2lzdGVyX2xhbmRfY2FzdGVyCnJlZ2lzdGVybGFuZGNhc3Rlcl8yOgpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgpkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDAKZnJhbWVfZGlnIDEKY2FsbHN1YiByZWdpc3RlcmxhbmRfMApyZXRzdWIKCi8vIGdldF9sYW5kX2RldGFpbHNfY2FzdGVyCmdldGxhbmRkZXRhaWxzY2FzdGVyXzM6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIGdldGxhbmRkZXRhaWxzXzEKZnJhbWVfYnVyeSAwCnB1c2hieXRlcyAweDE1MWY3Yzc1IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKY29uY2F0CmxvZwpyZXRzdWI=",
     "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
   },
   "state": {
@@ -103,21 +97,14 @@ export const APP_SPEC: AppSpec = {
       },
       {
         "name": "get_land_details",
-        "args": [],
-        "returns": {
-          "type": "string"
-        }
-      },
-      {
-        "name": "check_land_details",
         "args": [
           {
             "type": "string",
-            "name": "title_deed"
+            "name": "land"
           }
         ],
         "returns": {
-          "type": "uint64"
+          "type": "string"
         }
       }
     ],
@@ -207,18 +194,12 @@ export type DeedDefender = {
       argsTuple: [landReferenceNumber: string, titleDeedNumber: string]
       returns: void
     }>
-    & Record<'get_land_details()string' | 'get_land_details', {
+    & Record<'get_land_details(string)string' | 'get_land_details', {
       argsObj: {
+        land: string
       }
-      argsTuple: []
+      argsTuple: [land: string]
       returns: string
-    }>
-    & Record<'check_land_details(string)uint64' | 'check_land_details', {
-      argsObj: {
-        titleDeed: string
-      }
-      argsTuple: [titleDeed: string]
-      returns: bigint
     }>
   /**
    * Defines the shape of the global and local state of the application.
@@ -315,30 +296,16 @@ export abstract class DeedDefenderCallFactory {
     }
   }
   /**
-   * Constructs a no op call for the get_land_details()string ABI method
+   * Constructs a no op call for the get_land_details(string)string ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static getLandDetails(args: MethodArgs<'get_land_details()string'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static getLandDetails(args: MethodArgs<'get_land_details(string)string'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'get_land_details()string' as const,
-      methodArgs: Array.isArray(args) ? args : [],
-      ...params,
-    }
-  }
-  /**
-   * Constructs a no op call for the check_land_details(string)uint64 ABI method
-   *
-   * @param args Any args for the contract call
-   * @param params Any additional parameters for the call
-   * @returns A TypedCallParams object for the call
-   */
-  static checkLandDetails(args: MethodArgs<'check_land_details(string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
-    return {
-      method: 'check_land_details(string)uint64' as const,
-      methodArgs: Array.isArray(args) ? args : [args.titleDeed],
+      method: 'get_land_details(string)string' as const,
+      methodArgs: Array.isArray(args) ? args : [args.land],
       ...params,
     }
   }
@@ -452,25 +419,14 @@ export class DeedDefenderClient {
   }
 
   /**
-   * Calls the get_land_details()string ABI method.
+   * Calls the get_land_details(string)string ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public getLandDetails(args: MethodArgs<'get_land_details()string'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+  public getLandDetails(args: MethodArgs<'get_land_details(string)string'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
     return this.call(DeedDefenderCallFactory.getLandDetails(args, params))
-  }
-
-  /**
-   * Calls the check_land_details(string)uint64 ABI method.
-   *
-   * @param args The arguments for the contract call
-   * @param params Any additional parameters for the call
-   * @returns The result of the call
-   */
-  public checkLandDetails(args: MethodArgs<'check_land_details(string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
-    return this.call(DeedDefenderCallFactory.checkLandDetails(args, params))
   }
 
   /**
@@ -543,13 +499,8 @@ export class DeedDefenderClient {
         resultMappers.push(undefined)
         return this
       },
-      getLandDetails(args: MethodArgs<'get_land_details()string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
+      getLandDetails(args: MethodArgs<'get_land_details(string)string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.getLandDetails(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
-        resultMappers.push(undefined)
-        return this
-      },
-      checkLandDetails(args: MethodArgs<'check_land_details(string)uint64'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs) {
-        promiseChain = promiseChain.then(() => client.checkLandDetails(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
       },
@@ -596,22 +547,13 @@ export type DeedDefenderComposer<TReturns extends [...any[]] = []> = {
   registerLand(args: MethodArgs<'register_land(string,string)void'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'register_land(string,string)void'>]>
 
   /**
-   * Calls the get_land_details()string ABI method.
+   * Calls the get_land_details(string)string ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  getLandDetails(args: MethodArgs<'get_land_details()string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'get_land_details()string'>]>
-
-  /**
-   * Calls the check_land_details(string)uint64 ABI method.
-   *
-   * @param args The arguments for the contract call
-   * @param params Any additional parameters for the call
-   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
-   */
-  checkLandDetails(args: MethodArgs<'check_land_details(string)uint64'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'check_land_details(string)uint64'>]>
+  getLandDetails(args: MethodArgs<'get_land_details(string)string'>, params?: AppClientComposeCallCoreParams & CoreAppCallArgs): DeedDefenderComposer<[...TReturns, MethodReturn<'get_land_details(string)string'>]>
 
   /**
    * Makes a clear_state call to an existing instance of the Deed Defender smart contract.

@@ -26,6 +26,12 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     titleDeed:""
   })
 
+  const [verification, setVerification] = useState({
+    landNumberVerification:"",
+    titleDeedVerification:""
+  })
+
+  const [popup, setPopup] = useState<boolean>(false)
   // Components
   const { enqueueSnackbar } = useSnackbar()
 
@@ -71,7 +77,15 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     event.preventDefault()
   }
 
-  
+  function tooglePopup(){
+    setPopup(!popup)
+    if(popup){
+      setTimeout(()=>{
+        setPopup(!popup)
+      },3500)
+    }
+  }
+
   const sendAppCall = async () => {
     setLoading(true)
 
@@ -122,7 +136,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       return
     })
     
-    const response = await appClient.getLandDetails({}).catch((e: Error) => {
+    const response = await appClient.getLandDetails({land: form.titleDeed}).catch((e: Error) => {
       enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
       setLoading(false)
       return
@@ -156,14 +170,38 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
           />
           </div>
           <div className = 'form--submit'>
-            <button className={`btn`} onClick={sendAppCall}>
+            <button className='btn' onClick={sendAppCall}>
               {loading ? <span className="loading loading-spinner" /> : 'Submit'}
             </button>
             <button type="button" className="btn" onClick={() => setModalState(!openModal)}>
               Back To Menu
             </button>
           </div>
-          
+         
+          <h1>Verify details</h1>
+          <div>
+            <label>Land Number:</label>
+            <input className = 'form--input' placeholder = 'Land Number'
+              name = "landNumberVerification"
+              value = {verification.landNumberVerification}
+              onChange = {handleChange}
+            />
+          </div>
+          <div>
+            <label>Title Deed:</label>
+            <input className = 'form--input' placeholder = 'Title Deed'
+              name = "titleDeedVerification"
+              value = {verification.titleDeedVerification}
+              onChange = {handleChange}
+            />
+          </div>
+          <div>
+            <button className = "btn" type = 'button'
+              onClick = {tooglePopup}
+            >
+              Verify Details
+            </button>
+          </div>
         </form>
         
     </dialog>
