@@ -12,24 +12,24 @@ class AppState:
         stack_type=TealType.bytes
     )
 
-    land_title_mapping = BoxMapping(abi.String, abi.String)
+    # land_title_mapping = BoxMapping(abi.String, abi.String)
 
 app = Application(
     "Deed Defender",
     state=AppState(),
     descr="This is Deed Defender"
-)
+).apply(unconditional_create_approval, initialize_global_state=True)
 
-@app.external(authorize=Authorize.only(Global.creator_address()))
+@app.external()
 def register_land(land_reference_number: abi.String, title_deed_number: abi.String) -> Expr:
-    # return Seq(
-    #     app.state.land_reference_number.set(land_reference_number.get()),
-    #     app.state.title_deed_number.set(title_deed_number.get())
-    # )
-
     return Seq(
-        app.state.land_title_mapping[land_reference_number.get()].set(title_deed_number.get()),
+        app.state.land_reference_number.set(land_reference_number.get()),
+        app.state.title_deed_number.set(title_deed_number.get())
     )
+
+    # return Seq(
+    #     app.state.land_title_mapping[land_reference_number.get()].set(title_deed_number.get()),
+    # )
 
 # @app.external(read_only=True)
 # def get_land_details(*, output: abi.String):
@@ -41,20 +41,24 @@ def register_land(land_reference_number: abi.String, title_deed_number: abi.Stri
     #     )
     # )
 
-@app.external
-def get_land_details(land: abi.String, *, output: abi.String):
-    # return app.state.land_title_mapping[land.get()].store_into(output)
-    return output.set(app.state.land_title_mapping[land.get()].get())
-
 # @app.external
-# def check_land_details(title_deed: abi.String, *, output: abi.Uint64) -> Expr:
-#     return If(
-#         title_deed.get() == app.state.title_deed_number
-#     ).Then(
-#         output.set(1)
-#     ).Else(
-#         output.set(0)
-#     )
+# def get_land_details(land: abi.String, *, output: abi.String):
+    # return app.state.land_title_mapping[land.get()].store_into(output)
+    # return output.set(app.state.land_title_mapping[land.get()].get())
+
+@app.external
+def verify_land_reference_number_existence(land_reference_number: abi.String, *, output: abi.Uint64) -> Expr:
+    return If(
+        land_reference_number.get() == app.state.land_reference_number
+    ).Then(
+        output.set(1)
+    ).Else(
+        output.set(0)
+    )
+
+@app.external
+def verify_title_deed(*, output: abi.String) -> Expr:
+    return output.set(app.state.title_deed_number)
 
 # app_spec = app.build()
 # print("======================APP SPEC")

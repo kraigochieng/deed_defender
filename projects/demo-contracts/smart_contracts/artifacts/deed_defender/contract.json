@@ -18,15 +18,15 @@
             }
         },
         {
-            "name": "get_land_details",
+            "name": "verify_land_details",
             "args": [
                 {
                     "type": "string",
-                    "name": "land"
+                    "name": "land_reference_number"
                 }
             ],
             "returns": {
-                "type": "string"
+                "type": "uint64"
             }
         }
     ],

@@ -79,14 +79,25 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     }))
   }
 
+  function handleVerificationChange(event: ChangeEvent<HTMLInputElement>){
+    
+    const {value, name} =event.target
+
+    setVerification(prevForm =>({
+      ...prevForm,
+      [name] : value
+    }))
+  }
+
   function handleSubmit(event: ChangeEvent<HTMLFormElement>){
     event.preventDefault()
   }
 
   async function tooglePopup(){
 
-    let data = await response?.return
-    
+    // let data = await response?.return
+    const data: (string & ABIReturn) | undefined = undefined
+
     setVerification(prevVerify => ({
       ...prevVerify,
       blockChainResponse: data
@@ -100,7 +111,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     }
   }
  
-  const sendAppCall = async () => {
+  const sendRegisterLandAppCall = async () => {
     setLoading(true)
 
     // Please note, in typical production scenarios,
@@ -111,10 +122,10 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     // const appDetails = {
     //   // resolveBy: 'creatorAndName',
     //   resolveBy: 'id',
-    //   id: 1009,
+    //   id: 1066,
     //   sender: { signer, addr: activeAddress } as TransactionSignerAccount,
     //   // creatorAddress: activeAddress,
-    //   // findExistingUsing: indexer,
+    //   findExistingUsing: indexer,
     // } as AppDetails
 
     // for demonstration purposes.
@@ -127,7 +138,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     // Creating an App Client
     const appClient = new DeedDefenderClient(appDetails, algodClient)
 
-    appClient.create
+    // appClient.create
 
     // Adding parameters tgo created client
     const deployParams = {
@@ -135,12 +146,13 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       onUpdate: OnUpdate.AppendApp,
     }
 
-    // Deploying the contarct
-    await appClient.deploy(deployParams).catch((e: Error) => {
+    const appDeployment = await appClient.deploy(deployParams).catch((e: Error) => {
       enqueueSnackbar(`App found ${e.message}`, { variant: 'success' })
       setLoading(false)
       return
     })
+
+    // console.log("App Deployment", appDeployment.appId)
 
     // Actual execution 
     // register Land
@@ -149,14 +161,65 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       setLoading(false)
       return
     })
+
+    // setResult(response?.return)
+
+    // enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
     
-    const response = await appClient.getLandDetails({land: form.titleDeed}).catch((e: Error) => {
-      enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
+    setLoading(false)
+
+  }
+
+  const sendVerifyLandAppCall = async () => {
+    setLoading(true)
+
+    // Please note, in typical production scenarios,
+    // you wouldn't want to use deploy directly from your frontend.
+    // Instead, you would deploy your contract on your backend and reference it by id.
+    // Given the simplicity of the starter contract, we are deploying it on the frontend
+    // for demonstration purposes.
+    // const appDetails = {
+    //   // resolveBy: 'creatorAndName',
+    //   resolveBy: 'id',
+    //   id: 1066,
+    //   sender: { signer, addr: activeAddress } as TransactionSignerAccount,
+    //   // creatorAddress: activeAddress,
+    //   findExistingUsing: indexer,
+    // } as AppDetails
+
+    // for demonstration purposes.
+    const appDetails = {
+      resolveBy: 'creatorAndName',
+      sender: { signer, addr: activeAddress } as TransactionSignerAccount,
+      creatorAddress: activeAddress,
+      findExistingUsing: indexer,
+    } as AppDetails
+    // Creating an App Client
+    const appClient = new DeedDefenderClient(appDetails, algodClient)
+
+    // appClient.create
+
+    // Adding parameters tgo created client
+    const deployParams = {
+      onSchemaBreak: OnSchemaBreak.AppendApp,
+      onUpdate: OnUpdate.AppendApp,
+    }
+
+    const appDeployment = await appClient.deploy(deployParams).catch((e: Error) => {
+      enqueueSnackbar(`App found ${e.message}`, { variant: 'success' })
       setLoading(false)
       return
     })
 
-   
+    // console.log("App Deployment", appDeployment.appId)
+
+    // Actual execution 
+    // register Land
+    const response = await appClient.verifyLandDetails({ landReferenceNumber: verification.landNumberVerification }).catch((e: Error) => {
+      enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
+      setLoading(false)
+      return
+    })
 
     // setResult(response?.return)
 
@@ -187,7 +250,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
           />
           </div>
           <div className = 'form--submit'>
-            <button className='btn' onClick={sendAppCall}>
+            <button className='btn' onClick={sendRegisterLandAppCall}>
               {loading ? <span className="loading loading-spinner" /> : 'Submit'}
             </button>
             <button type="button" className="btn" onClick={() => setModalState(!openModal)}>
@@ -201,7 +264,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
             <input className = 'form--input' placeholder = 'Land Number'
               name = "landNumberVerification"
               value = {verification.landNumberVerification}
-              onChange = {handleChange}
+              onChange = {handleVerificationChange}
             />
           </div>
           <div>
@@ -209,12 +272,13 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
             <input className = 'form--input' placeholder = 'Title Deed'
               name = "titleDeedVerification"
               value = {verification.titleDeedVerification}
-              onChange = {handleChange}
+              onChange = {handleVerificationChange}
             />
           </div>
           <div>
             <button className = "btn" type = 'button'
-              onClick = {tooglePopup}
+              // onClick = {tooglePopup}
+              onClick = {sendVerifyLandAppCall}
             >
               Verify Details
             </button>
