@@ -84,6 +84,13 @@ load 1
 assert
 load 0
 frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
 retsub
 
 // register_land_caster

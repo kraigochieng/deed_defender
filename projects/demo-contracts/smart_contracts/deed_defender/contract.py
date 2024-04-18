@@ -43,7 +43,8 @@ def register_land(land_reference_number: abi.String, title_deed_number: abi.Stri
 
 @app.external
 def get_land_details(land: abi.String, *, output: abi.String):
-    return app.state.land_title_mapping[land.get()].store_into(output)
+    # return app.state.land_title_mapping[land.get()].store_into(output)
+    return output.set(app.state.land_title_mapping[land.get()].get())
 
 # @app.external
 # def check_land_details(title_deed: abi.String, *, output: abi.Uint64) -> Expr:
