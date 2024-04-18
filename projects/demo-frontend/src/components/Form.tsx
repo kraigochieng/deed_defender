@@ -224,6 +224,28 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       return
     })
 
+    let landAndTitleDeedsList;
+    let landAndTitleDeedsMap = new Map()
+
+    if(response?.return != undefined) {
+      landAndTitleDeedsList = response?.return?.split(";")
+
+      landAndTitleDeedsList?.pop() // To remove the empty string
+
+      console.log(landAndTitleDeedsList)
+      
+
+      for(let i = 0; i < landAndTitleDeedsList?.length; i++) {
+        const landTitle = landAndTitleDeedsList[i].split(":")
+        landAndTitleDeedsMap.set(landTitle[0], landTitle[1])
+      }
+
+      console.log(landAndTitleDeedsMap)
+    enqueueSnackbar(`Existing land details: ${response?.return}`, {variant: "success"})
+    }
+    
+    
+    setLoading(false)
     // console.log("App Deployment", appDeployment.appId)
 
     // Actual execution 
@@ -235,10 +257,6 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     // })
 
     // setResult(response?.return)
-
-    enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
-    
-    setLoading(false)
 
   }
 
