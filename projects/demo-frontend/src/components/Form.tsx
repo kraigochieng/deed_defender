@@ -26,9 +26,15 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     titleDeed:""
   })
 
-  const [verification, setVerification] = useState({
+  type verificationType = {
+    landNumberVerification:string,
+    titleDeedVerification: string,
+    blockChainResponse: (string & ABIReturn) | undefined
+  }
+  const [verification, setVerification] = useState<verificationType>({
     landNumberVerification:"",
-    titleDeedVerification:""
+    titleDeedVerification:"",
+    blockChainResponse: undefined
   })
 
   const [popup, setPopup] = useState<boolean>(false)
@@ -77,7 +83,15 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     event.preventDefault()
   }
 
-  function tooglePopup(){
+  async function tooglePopup(){
+
+    let data = await response?.return
+    
+    setVerification(prevVerify => ({
+      ...prevVerify,
+      blockChainResponse: data
+    }))
+
     setPopup(!popup)
     if(popup){
       setTimeout(()=>{
@@ -85,7 +99,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       },3500)
     }
   }
-
+ 
   const sendAppCall = async () => {
     setLoading(true)
 
@@ -142,11 +156,14 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       return
     })
 
+   
+
     // setResult(response?.return)
 
     enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
     
     setLoading(false)
+
   }
 
   return (
@@ -201,9 +218,12 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
             >
               Verify Details
             </button>
+            {popup && (
+              verification.titleDeedVerification ==  verification.blockChainResponse? <h1>Details are valid</h1> :<h1>False Details</h1>
+            )}
           </div>
         </form>
-        
+        /**hi */
     </dialog>
   )
 }
