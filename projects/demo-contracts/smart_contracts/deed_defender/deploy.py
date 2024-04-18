@@ -58,22 +58,47 @@ App Address: {addr}
 # creator_app_client.call(contract.register_land, land_reference_number="47/123/456", title_deed_number="ABCD")
 creator_app_client.call(
     contract.register_land, 
-    land_reference_number="47/123/456",
-    title_deed_number="ABCD",
-    boxes=[(creator_app_id, "47/123/456")]
+    land_reference_number="1",
+    title_deed_number="A",
+    boxes=[(creator_app_id, "1")]
 )
 
-land_details = creator_app_client.call(
-    contract.get_land_details,
-    land="47/123/456",
-    boxes=[(creator_app_id, "47/123/456")]
-    
+creator_app_client.call(
+    contract.register_land, 
+    land_reference_number="2",
+    title_deed_number="B",
+    boxes=[(creator_app_id, "2")]
 )
+
+creator_app_client.call(
+    contract.register_land, 
+    land_reference_number="1",
+    title_deed_number="C",
+    boxes=[(creator_app_id, "1")]
+)
+
+
+land_details = creator_app_client.call(
+        contract.get_land_details,
+        land="1",
+        boxes=[(creator_app_id, "1")]
+    )
+
+print(f"register land => {land_details.return_value}")
+
+try:
+    creator_app_client.call(
+        contract.get_land_details,
+        land="9",
+        boxes=[(creator_app_id, "9")]
+    )
+except Exception as e:
+    print("Land does not exist")
 
 # check_1 = creator_app_client.call(contract.check_land_details, title_deed="ABCD")
 # check_2 = creator_app_client.call(contract.check_land_details, title_deed="ABC")
 
-print(f"register land => {land_details.return_value}")
+
 # print(f"check 1 => {check_1.return_value}")
 # print(f"check 2 => {check_2.return_value}")
 
