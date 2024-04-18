@@ -80,6 +80,16 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     // Instead, you would deploy your contract on your backend and reference it by id.
     // Given the simplicity of the starter contract, we are deploying it on the frontend
     // for demonstration purposes.
+    // const appDetails = {
+    //   // resolveBy: 'creatorAndName',
+    //   resolveBy: 'id',
+    //   id: 1009,
+    //   sender: { signer, addr: activeAddress } as TransactionSignerAccount,
+    //   // creatorAddress: activeAddress,
+    //   // findExistingUsing: indexer,
+    // } as AppDetails
+
+    // for demonstration purposes.
     const appDetails = {
       resolveBy: 'creatorAndName',
       sender: { signer, addr: activeAddress } as TransactionSignerAccount,
@@ -99,7 +109,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
 
     // Deploying the contarct
     await appClient.deploy(deployParams).catch((e: Error) => {
-      enqueueSnackbar(`Error deploying the contract: ${e.message}`, { variant: 'error' })
+      enqueueSnackbar(`App found ${e.message}`, { variant: 'success' })
       setLoading(false)
       return
     })

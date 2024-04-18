@@ -19,21 +19,14 @@
         },
         {
             "name": "get_land_details",
-            "args": [],
-            "returns": {
-                "type": "string"
-            }
-        },
-        {
-            "name": "check_land_details",
             "args": [
                 {
                     "type": "string",
-                    "name": "title_deed"
+                    "name": "land"
                 }
             ],
             "returns": {
-                "type": "uint64"
+                "type": "string"
             }
         }
     ],

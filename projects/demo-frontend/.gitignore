@@ -13,7 +13,7 @@
 
 
 # dotenv environment variable files
-.env
+# .env
 env/
 
 # misc

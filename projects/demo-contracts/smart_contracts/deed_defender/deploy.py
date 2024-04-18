@@ -1,5 +1,6 @@
 import contract
 from beaker import client, localnet
+from beaker.consts import algo
 from pprint import pprint
 contract.app.build().export("../artifacts/deed_defender")
 
@@ -21,6 +22,8 @@ creator_app_client = client.ApplicationClient(
 
 creator_app_id, addr, txid = creator_app_client.create()
 
+creator_app_client.fund(1000 * algo)
+
 user_app_client = client.ApplicationClient(
     client=localnet.get_algod_client(),
     app=contract.app,
@@ -30,6 +33,9 @@ user_app_client = client.ApplicationClient(
 )
 
 user_app_id, addr, txid = user_app_client.create()
+
+user_app_client.fund(1000 * algo)
+
 
 print(
     f"""
@@ -49,24 +55,36 @@ App Address: {addr}
 """
 )
 
-creator_app_client.call(contract.register_land, land_reference_number="47/123/456", title_deed_number="ABCD")
-land_details = creator_app_client.call(contract.get_land_details)
+# creator_app_client.call(contract.register_land, land_reference_number="47/123/456", title_deed_number="ABCD")
+creator_app_client.call(
+    contract.register_land, 
+    land_reference_number="47/123/456",
+    title_deed_number="ABCD",
+    boxes=[(creator_app_id, "47/123/456")]
+)
 
-check_1 = creator_app_client.call(contract.check_land_details, title_deed="ABCD")
-check_2 = creator_app_client.call(contract.check_land_details, title_deed="ABC")
+land_details = creator_app_client.call(
+    contract.get_land_details,
+    land="47/123/456",
+    boxes=[(creator_app_id, "47/123/456")]
+    
+)
+
+# check_1 = creator_app_client.call(contract.check_land_details, title_deed="ABCD")
+# check_2 = creator_app_client.call(contract.check_land_details, title_deed="ABC")
 
 print(f"register land => {land_details.return_value}")
-print(f"check 1 => {check_1.return_value}")
-print(f"check 2 => {check_2.return_value}")
+# print(f"check 1 => {check_1.return_value}")
+# print(f"check 2 => {check_2.return_value}")
 
-try:
-    user_app_client.call(contract.register_land, land_reference_number="q", title_deed_number="r")
-    print("changed by another")
-except Exception as e:
-    print("tring to register" + e)
+# try:
+#     user_app_client.call(contract.register_land, land_reference_number="q", title_deed_number="r")
+#     print("changed by another")
+# except Exception as e:
+#     print("tring to register" + e)
 
-creator_app_client.call(contract.register_land, land_reference_number="b", title_deed_number="e")
+# creator_app_client.call(contract.register_land, land_reference_number="b", title_deed_number="e")
 
-print(f"register land => {land_details.return_value}")
+# print(f"register land => {land_details.return_value}")
 
 
