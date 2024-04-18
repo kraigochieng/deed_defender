@@ -56,13 +56,23 @@ App Address: {addr}
 )
 
 # creator_app_client.call(contract.register_land, land_reference_number="47/123/456", title_deed_number="ABCD")
-# creator_app_client.call(
-#     contract.register_land, 
-#     land_reference_number="1",
-#     title_deed_number="A",
-#     # boxes=[(creator_app_id, "1")]
-# )
+creator_app_client.call(
+    contract.register_land, 
+    land_reference_and_title_deed="A:B;"
+)
 
+land_and_title = creator_app_client.call(contract.get_land)
+
+print(land_and_title.return_value)
+
+creator_app_client.call(
+    contract.register_land, 
+    land_reference_and_title_deed="C:D;",
+)
+
+land_and_title = creator_app_client.call(contract.get_land)
+
+print(land_and_title.return_value)
 # creator_app_client.call(
 #     contract.register_land, 
 #     land_reference_number="2",

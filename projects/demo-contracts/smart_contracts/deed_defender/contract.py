@@ -13,7 +13,8 @@ class AppState:
     # )
 
     land_reference_and_title_deed = GlobalStateValue(
-        stack_type=TealType.bytes
+        stack_type=TealType.bytes,
+        default=Bytes("")
     )
     
     # land_title_mapping = BoxMapping(abi.String, abi.String)
@@ -35,13 +36,15 @@ app = Application(
 
 @app.external()
 def register_land(land_reference_and_title_deed: abi.String) -> Expr:
+    # Concatenating existing string with new string
     return Seq(
-        app.state.land_reference_and_title_deed.set(land_reference_and_title_deed.get())
+        app.state.land_reference_and_title_deed.set(
+            Concat(
+                app.state.land_reference_and_title_deed.get(),
+                land_reference_and_title_deed.get()
+            )
+        )
     )
-
-    # return Seq(
-    #     app.state.land_title_mapping[land_reference_number.get()].set(title_deed_number.get()),
-    # )
 
 # @app.external(read_only=True)
 # def get_land_details(*, output: abi.String):
@@ -60,7 +63,7 @@ def register_land(land_reference_and_title_deed: abi.String) -> Expr:
 
 @app.external
 def get_land(*, output: abi.String) -> Expr:
-    return output.set(app.state.land_reference_and_title_deed)
+    return output.set(app.state.land_reference_and_title_deed.get())
 
 # @app.external
 # def verify_land_reference_number_existence(land_reference_number: abi.String, *, output: abi.Uint64) -> Expr:

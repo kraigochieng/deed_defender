@@ -6,11 +6,7 @@
             "args": [
                 {
                     "type": "string",
-                    "name": "land_reference_number"
-                },
-                {
-                    "type": "string",
-                    "name": "title_deed_number"
+                    "name": "land_reference_and_title_deed"
                 }
             ],
             "returns": {
@@ -18,15 +14,10 @@
             }
         },
         {
-            "name": "verify_land_details",
-            "args": [
-                {
-                    "type": "string",
-                    "name": "land_reference_number"
-                }
-            ],
+            "name": "get_land",
+            "args": [],
             "returns": {
-                "type": "uint64"
+                "type": "string"
             }
         }
     ],
