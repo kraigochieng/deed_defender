@@ -1,10 +1,11 @@
 import { Provider, useWallet } from '@txnlab/use-wallet'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
+import { APP_SPEC } from '../contracts/Deed Defender'
 import { getAlgodConfigFromViteEnvironment, getIndexerConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
 import * as algokit from '@algorandfoundation/algokit-utils'
 import { ChangeEvent, useState } from 'react'
-import { MyRadAppClient } from '../contracts/MyRadApp'
+import { DeedDefenderClient } from '../contracts/Deed Defender'
 import { ABIReturn, OnSchemaBreak, OnUpdate } from '@algorandfoundation/algokit-utils/types/app'
 import { useSnackbar } from 'notistack'
 import { ABIValue } from 'algosdk'
@@ -16,6 +17,8 @@ interface MyComponentInterface {
 }
 
 const Form = ({ openModal, setModalState }: MyComponentInterface) => {
+
+  // App State 
   const [loading, setLoading] = useState<boolean>(false)
 
   const [form, setForm] = useState({
@@ -23,6 +26,37 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     titleDeed:""
   })
 
+  // Components
+  const { enqueueSnackbar } = useSnackbar()
+
+  // Algorand BoilerPlate
+  const { signer, activeAddress } = useWallet()
+  
+  const algodConfig = getAlgodConfigFromViteEnvironment()
+
+  const algodClient = algokit.getAlgoClient({
+    server: algodConfig.server,
+    port: algodConfig.port,
+    token: algodConfig.token,
+  })
+
+  const indexerConfig = getIndexerConfigFromViteEnvironment()
+  const indexer = algokit.getAlgoIndexerClient({
+    server: indexerConfig.server,
+    port: indexerConfig.port,
+    token: indexerConfig.token,
+  })
+
+  // async function test() {
+  //   if(activeAddress != undefined) {
+  //     // const result = await indexer.lookupAccountCreatedApplications(activeAddress).do()
+  //     const result = await indexer.searchForApplications().do()
+  //     console.log(result)
+  //   }
+  // }
+  
+  // test()
+  // Form handling
   function handleChange(event: ChangeEvent<HTMLInputElement>){
     
     const {value, name} =event.target
@@ -37,22 +71,7 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     event.preventDefault()
   }
 
-  const { signer, activeAddress } = useWallet()
-  const { enqueueSnackbar } = useSnackbar()
-
-  const algodConfig = getAlgodConfigFromViteEnvironment()
-  const algodClient = algokit.getAlgoClient({
-    server: algodConfig.server,
-    port: algodConfig.port,
-    token: algodConfig.token,
-  })
-  const indexerConfig = getIndexerConfigFromViteEnvironment()
-  const indexer = algokit.getAlgoIndexerClient({
-    server: indexerConfig.server,
-    port: indexerConfig.port,
-    token: indexerConfig.token,
-  })
-
+  
   const sendAppCall = async () => {
     setLoading(true)
 
@@ -67,9 +86,10 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
       creatorAddress: activeAddress,
       findExistingUsing: indexer,
     } as AppDetails
-
     // Creating an App Client
-    const appClient = new MyRadAppClient(appDetails, algodClient)
+    const appClient = new DeedDefenderClient(appDetails, algodClient)
+
+    appClient.create
 
     // Adding parameters tgo created client
     const deployParams = {
@@ -85,24 +105,28 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
     })
 
     // Actual execution 
-    // const response = await appClient.add({ a: num1, b: num2 }).catch((e: Error) => {
-    //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
-    //   setLoading(false)
-    //   return
-    // })
+    // register Land
+    await appClient.registerLand({ landReferenceNumber: form.landNumber, titleDeedNumber: form.titleDeed }).catch((e: Error) => {
+      enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
+      setLoading(false)
+      return
+    })
     
+    const response = await appClient.getLandDetails({}).catch((e: Error) => {
+      enqueueSnackbar(`Error registering land: ${e.message}`, { variant: 'error' })
+      setLoading(false)
+      return
+    })
 
-    // console.log(response?.return)
     // setResult(response?.return)
 
-    // enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
+    enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
     
     setLoading(false)
   }
 
   return (
     <dialog id="appcalls_modal" className={`modal ${openModal ? 'modal-open' : ''} bg-slate-200`}>
-
         <form onSubmit ={handleSubmit} className = 'form'>
           <h1>Deed Defender</h1>
           <div>
@@ -122,8 +146,14 @@ const Form = ({ openModal, setModalState }: MyComponentInterface) => {
           />
           </div>
           <div className = 'form--submit'>
-            <button className = 'form--submit--btn'>Submit</button>
+            <button className={`btn`} onClick={sendAppCall}>
+              {loading ? <span className="loading loading-spinner" /> : 'Submit'}
+            </button>
+            <button type="button" className="btn" onClick={() => setModalState(!openModal)}>
+              Back To Menu
+            </button>
           </div>
+          
         </form>
         
     </dialog>

@@ -71,7 +71,7 @@ const Home: React.FC<HomeProps> = () => {
 
             {activeAddress && (
               <button data-test-id="my-component-demo" className="btn m-2" onClick={toggleFormModal}>
-                Deed Defender
+                Register Land
               </button>
             )}
           </div>

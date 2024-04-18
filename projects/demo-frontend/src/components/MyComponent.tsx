@@ -14,15 +14,15 @@ interface MyComponentInterface {
 }
 
 const MyComponent = ({ openModal, setModalState }: MyComponentInterface) => {
-    async function testing() {
-        const address = "IWKHBJVHTHIHWCXXSXWO5XXKD7ZNHRSYGLXLCHWJSKMXN32KUYY7B3MCII";
-        const accountAppLocalStates = await indexer.lookupAccountByID(address).do();
-        console.log(accountAppLocalStates)
-      }
+    // async function testing() {
+    //     const address = "IWKHBJVHTHIHWCXXSXWO5XXKD7ZNHRSYGLXLCHWJSKMXN32KUYY7B3MCII";
+    //     const accountAppLocalStates = await indexer.lookupAccountByID(address).do();
+    //     console.log(accountAppLocalStates)
+    //   }
     
-    useEffect(()=> {
-        testing()
-    }, [])
+    // useEffect(()=> {
+    //     testing()
+    // }, [])
     // App states
   const [loading, setLoading] = useState<boolean>(false)
   const [num1, setNum1] = useState<number>(0)
@@ -64,6 +64,9 @@ const MyComponent = ({ openModal, setModalState }: MyComponentInterface) => {
       creatorAddress: activeAddress,
       findExistingUsing: indexer,
     } as AppDetails
+
+    console.log("App Details")
+    console.log(appDetails)
 
     // Creating an App Client
     const appClient = new MyRadAppClient(appDetails, algodClient)

@@ -3,6 +3,8 @@ from beaker import client, localnet
 from pprint import pprint
 contract.app.build().export("../artifacts/deed_defender")
 
+# Note that from here all this code here is just to test the application
+# The code from below can be commented out
 accounts = localnet.kmd.get_accounts()
 creator = accounts[0]
 user = accounts[1]

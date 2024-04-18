@@ -36,7 +36,7 @@ def get_land_details(*, output: abi.String):
 @app.external
 def check_land_details(title_deed: abi.String, *, output: abi.Uint64) -> Expr:
     return If(
-        title_deed.get() ==app.state.title_deed_number
+        title_deed.get() == app.state.title_deed_number
     ).Then(
         output.set(1)
     ).Else(

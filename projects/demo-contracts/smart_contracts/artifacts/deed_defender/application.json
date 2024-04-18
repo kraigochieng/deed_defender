@@ -6,6 +6,7 @@
             }
         },
         "get_land_details()string": {
+            "read_only": true,
             "call_config": {
                 "no_op": "CALL"
             }
